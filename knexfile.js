@@ -5,16 +5,16 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'localhost'
       database: 'reddit_clone',
+      host: 'localhost'
     }
   },
 
   test: {
     client: 'pg',
     connection: {
-      host: 'localhost'
       database: 'reddit_clone_test',
+      host: 'localhost'
     }
   },
 

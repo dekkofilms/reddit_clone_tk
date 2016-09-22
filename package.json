@@ -4,8 +4,8 @@
   "description": "Reddit Clone",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
-    "start": "node server.js"
+    "test": "NODE_ENV=test mocha",
+    "start": "NODE_ENV=development nodemon"
   },
   "author": "",
   "license": "ISC",
