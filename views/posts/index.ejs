@@ -18,7 +18,7 @@
   <ul>
     <% posts.forEach(function (post) { %>
       <ul>
-        <a href=<%= post.id %>>TEST</a>
+        <a href=<%= 'posts/' + post.id %>>TEST</a>
         <li><%= post.post_link%></li>
         <li><%= post.post_content%></li>
       </ul>
