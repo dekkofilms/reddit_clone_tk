@@ -62,15 +62,19 @@ describe('find new post page', function() {
 
 describe('comment route', function() {
   it('should post a comment to specific post page', function(done) {
-    request(app).post('/posts/:postID')
+    knex('posts').first('id').then(function (data) {
+      postID = data['id'];
+      postContent = data['post_content'];
+      var param = '/posts/' + postID;
+      request(app).post(param)
       .send({comment_content: 'this is a test comment'})
       .end(function (err, res) {
         knex('comments').first().then (function (data) {
-          console.log("data:" + data);
-          // expect(res.text).to.include('this is a test comment');
+          expect(data.comment_content).to.include('this is a test comment');
           done();
         })
       });
+    })
   });
 });
 
