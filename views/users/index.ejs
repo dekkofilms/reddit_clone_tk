@@ -7,10 +7,14 @@
   <title>Users!</title>
 </head>
 <body>
+  <h1>Welcome to Reddit Clone!</h1>
+  <h3>List of Users</h3>
   <ul>
     <% users.forEach(function (entry) { %>
       <li> <%= entry.username %> </li>
     <% }); %>
   </ul>
+  <h3>Are you new?</h3>
+  <a href="/users/new">Click here to join!</a>
 </body>
 </html>
