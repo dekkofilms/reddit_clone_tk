@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Spcific User Post</title>
+</head>
+<body>
+  <ul>
+      <ul>
+        <li><%= post.post_link%></li>
+        <li><%= post.post_content%></li>
+      </ul>
+      <p></p>
+  </ul>
+
+  <% comment.forEach(function (comment) { %>
+    <ul>
+      <li><%= comment.comment_content%></li>
+    </ul>
+    <p></p>
+  <% }) %>
+
+  <form action="<%= url%>" method="POST">
+    <label for="comment_content">Comment:</label>
+    <input type="text" name="comment_content">
+    <input type="submit">
+  </form>
+</body>
+</html>
