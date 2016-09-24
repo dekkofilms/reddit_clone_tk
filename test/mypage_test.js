@@ -8,11 +8,31 @@ var knex = require('knex')(config);
 describe('find initial route', function() {
   it('should go to home page', function(done) {
     request(app).get('/')
-      .expect(200)
+      .expect(302)
       .end(function (err, res) {
         expect(err).to.equal(null);
         done();
       });
+  });
+});
+
+describe('users have their own page', function() {
+  it('should go specific user page', function(done) {
+    var user = {username: 'Taylor'};
+    request(app).post('/users')
+      .send(user)
+      .end(function (err, res) {
+        knex('users').first().then(function (data) {
+          var userID = data.id
+          var param = '/users/' + userID;
+          request(app).get(param)
+            .expect(200)
+            .end(function (err, res) {
+              expect(err).to.equal(null);
+              done();
+          });
+        })
+      })
   });
 });
 

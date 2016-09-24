@@ -50,8 +50,10 @@ app.post('/posts/:postID', function (req, res) {
   });
 });
 
+
 app.get('/users', function (req, res) {
   knex.select().table('users').then(function (data) {
+    console.log(data);
     res.render('users/index', {users: data});
   });
 });
@@ -63,10 +65,19 @@ app.post('/users', function (req, res) {
     })
   });
 
+
 app.get('/users/new', function (req, res) {
   res.render('users/new', {data: 'hi'});
 });
 
+app.get('/users/:userID', function (req, res) {
+  var userID = req.params.userID
+  var url = req.url
+  knex.table('users').where({id: userID}).first().then(function (data) {
+    console.log(data);
+    res.render('users/id', {user: data, url: url});
+  });
+});
 
 app.listen(PORT, function (){
   console.log('server working!');
