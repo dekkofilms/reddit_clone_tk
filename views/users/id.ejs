@@ -8,5 +8,9 @@
 </head>
 <body>
   <h1>Hi There, <%= user.username %>!</h1>
+  <form action="/posts" method="GET">
+    <input type="hidden" name="user" value="<%= user.id %>">
+    <input type="submit" value="Make a Post">
+  </form>
 </body>
 </html>

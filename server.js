@@ -20,16 +20,19 @@ app.get('/', function (req, res) {
 });
 
 app.get('/posts', function (req, res) {
+  var url = req.url.split('=');
+  var userID = url.pop();
   knex.select().table('posts').then(function (data) {
-    res.render('posts/index', {posts: data});
+    res.render('posts/index', {posts: data, userID: userID});
   })
 });
 
-app.post('/posts', function (req, res) {
+app.post('/posts/new', function (req, res) {
   var post = req.body;
+  console.log(post);
   knex('posts').insert(post).then(function () {
-      res.redirect('/posts');
-  });
+    res.redirect('/posts?user=' + post.user_id);
+  })
 });
 
 app.get('/posts/:postID', function (req, res) {
@@ -75,12 +78,12 @@ app.get('/users/:userID', function (req, res) {
   var url = req.url
   knex.table('users').where({id: userID}).first().then(function (data) {
     console.log(data);
-    res.render('users/id', {user: data, url: url});
+    res.render('users/id', {user: data, url: url, userID: userID});
   });
 });
 
 app.listen(PORT, function (){
-  console.log('server working!');
+  console.log('server is running!');
 });
 
 module.exports = app;
