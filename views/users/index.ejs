@@ -16,6 +16,10 @@
         <input type="hidden" name="id" value="<%= entry.id%>">
         <input type="submit" value="x">
       </form>
+      <form method="GET" action="/users/edit">
+        <input type="hidden" name="id" value="<%= entry.id%>">
+        <input type="submit" value="Edit">
+      </form>
     <% }); %>
   </ul>
   <h3>Are you new?</h3>

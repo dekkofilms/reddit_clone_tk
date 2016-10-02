@@ -79,6 +79,22 @@ app.delete('/users', function (req, res) {
   })
 });
 
+app.get('/users/edit', function (req, res) {
+  var url = req.url.split('=');
+  var userID = url.pop();
+  knex('users').where({id: userID}).first().then(function (data) {
+    res.render('users/edit', {user: data});
+  });
+});
+
+app.put('/users/edit', function (req, res) {
+  var update = req.body;
+  console.log(update);
+  knex('users').where({id: update.userID}).update({username: update.name}).then(function () {
+    res.redirect('/users');
+  })
+});
+
 
 app.get('/users/new', function (req, res) {
   res.render('users/new', {data: 'hi'});
