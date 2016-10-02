@@ -30,6 +30,22 @@ app.get('/posts', function (req, res) {
   })
 });
 
+app.get('/posts/edit', function (req, res) {
+  var url = req.url.split('=');
+  var postID = url.pop();
+  knex('posts').where({id: postID}).first().then(function (data) {
+    res.render('posts/edit', {post: data})
+  })
+});
+
+app.put('/posts/edit', function (req, res) {
+  var update = req.body;
+  console.log(update);
+  knex('posts').where({id: update.id}).update({title: update.title, post_link: update.post_link, post_content: update.post_content}).then(function () {
+    res.redirect('/users/' + update.userID)
+  })
+});
+
 app.post('/posts/new', function (req, res) {
   var post = req.body;
   console.log(post);

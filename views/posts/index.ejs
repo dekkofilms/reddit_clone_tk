@@ -7,6 +7,13 @@
   <title>All Posts</title>
 </head>
 <body>
+  <form action="/users/<%= userID%>" method="GET">
+    <input type="submit" value="Go back to your Page">
+  </form>
+  <form action="/users" method="GET">
+    <input type="submit" value="Go back to all Users">
+  </form>
+  <h3>Create Your Post:</h3>
   <form action="/posts/new" method="POST">
     <input type="hidden" name="user_id" value="<%= userID %>">
     <label for="title">Post Title:</label>

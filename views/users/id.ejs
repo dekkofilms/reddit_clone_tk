@@ -11,18 +11,29 @@
   <h3>Your Posts:</h3>
   <ul>
     <% posts.forEach(function (post) { %>
-      <a href="/posts/<%= post.id%>"><%= post.post_content %></a>
-      <form method="POST" action="/posts?_method=DELETE">
-        <input type="hidden" name="userID" value="<%= user.id %>">
-        <input type="hidden" name="id" value="<%= post.id%>">
-        <input type="submit" value="x">
-      </form>
+      <li>
+        <a href="/posts/<%= post.id%>"><%= post.title %></a>
+        <form method="POST" action="/posts?_method=DELETE">
+          <input type="hidden" name="userID" value="<%= user.id %>">
+          <input type="hidden" name="id" value="<%= post.id%>">
+          <input type="submit" value="x">
+        </form>
+        <form method="GET" action="/posts/edit">
+          <input type="hidden" name="userID" value="<%= user.id %>">
+          <input type="hidden" name="id" value="<%= post.id%>">
+          <input type="submit" value="Edit">
+        </form>
+      </li>
     <% }) %>
   </ul>
 
   <form action="/posts" method="GET">
     <input type="hidden" name="user" value="<%= user.id %>">
     <input type="submit" value="Make a Post">
+  </form>
+
+  <form action="/users" method="GET">
+    <input type="submit" value="Go Back to Users">
   </form>
 </body>
 </html>
