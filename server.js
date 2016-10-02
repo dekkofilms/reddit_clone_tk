@@ -48,7 +48,9 @@ app.get('/posts/:postID', function (req, res) {
 app.post('/posts/:postID', function (req, res) {
   var postID = req.params.postID;
   var comment = req.body;
-  knex('comments').insert({comment_content: comment.comment_content, post_id: postID}).then(function () {
+  var url = req.url.split('=');
+  var userID = url.pop();
+  knex('comments').insert({comment_content: comment.comment_content, post_id: postID, user_id: userID}).then(function () {
     res.redirect(req.url);
   });
 });
