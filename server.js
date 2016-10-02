@@ -73,7 +73,6 @@ app.post('/users', function (req, res) {
 });
 
 app.delete('/users', function (req, res) {
-  console.log(req.body);
   knex('users').where(req.body).del().then(function () {
     res.redirect('/users');
   })
@@ -89,7 +88,6 @@ app.get('/users/edit', function (req, res) {
 
 app.put('/users/edit', function (req, res) {
   var update = req.body;
-  console.log(update);
   knex('users').where({id: update.userID}).update({username: update.name}).then(function () {
     res.redirect('/users');
   })
@@ -103,9 +101,10 @@ app.get('/users/new', function (req, res) {
 app.get('/users/:userID', function (req, res) {
   var userID = req.params.userID
   var url = req.url
-  knex.table('users').where({id: userID}).first().then(function (data) {
-    console.log(data);
-    res.render('users/id', {user: data, url: url, userID: userID});
+  knex.table('users').where({id: userID}).first().then(function (user) {
+    knex.table('posts').where({user_id: userID}).then(function (posts) {
+      res.render('users/id', {user: user, url: url, userID: userID, posts: posts});
+    })
   });
 });
 

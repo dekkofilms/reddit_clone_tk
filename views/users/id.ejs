@@ -8,6 +8,12 @@
 </head>
 <body>
   <h1>Hi There, <%= user.username %>!</h1>
+  <ul>
+    <% posts.forEach(function (post) { %>
+      <a href="/posts/<%= post.id%>"><%= post.post_content %></a>
+    <% }) %>
+  </ul>
+
   <form action="/posts" method="GET">
     <input type="hidden" name="user" value="<%= user.id %>">
     <input type="submit" value="Make a Post">
