@@ -8,9 +8,12 @@ var PORT = process.env.PORT || 3000;
 var environment = process.env.NODE_ENV;
 var config = require('./knexfile.js')[environment];
 var knex = require('knex')(config);
+var methodOverride = require('method-override');
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
 // app.use(express.static('public'));
@@ -58,7 +61,6 @@ app.post('/posts/:postID', function (req, res) {
 
 app.get('/users', function (req, res) {
   knex.select().table('users').then(function (data) {
-    console.log(data);
     res.render('users/index', {users: data});
   });
 });
@@ -68,7 +70,14 @@ app.post('/users', function (req, res) {
   knex('users').insert(name).then(function () {
       res.redirect('/users');
     })
-  });
+});
+
+app.delete('/users', function (req, res) {
+  console.log(req.body);
+  knex('users').where(req.body).del().then(function () {
+    res.redirect('/users');
+  })
+});
 
 
 app.get('/users/new', function (req, res) {

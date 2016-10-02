@@ -12,6 +12,10 @@
   <ul>
     <% users.forEach(function (entry) { %>
       <li><a href=<%='/users/' + entry.id%>><%= entry.username %></a></li>
+      <form method="POST" action="/users?_method=DELETE">
+        <input type="hidden" name="id" value="<%= entry.id%>">
+        <input type="submit" value="x">
+      </form>
     <% }); %>
   </ul>
   <h3>Are you new?</h3>
