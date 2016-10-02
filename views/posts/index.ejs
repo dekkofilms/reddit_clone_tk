@@ -9,15 +9,18 @@
 <body>
   <form action="/posts/new" method="POST">
     <input type="hidden" name="user_id" value="<%= userID %>">
+    <label for="title">Post Title:</label>
+    <input type="text" name="title">
     <label for="post_link">Post Link:</label>
     <input type="text" name="post_link">
     <label for="post_content">Post Content:</label>
-    <input type="text" name="post_content">
+    <textarea rows="4" type="text" name="post_content"></textarea>
     <input type="submit">
   </form>
 
   <ul>
     <% posts.forEach(function (post) { %>
+      <h2><%= post.title%></h2>
       <ul>
         <li><%= post.post_link%></li>
         <li><%= post.post_content%></li>
