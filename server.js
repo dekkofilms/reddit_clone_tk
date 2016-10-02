@@ -38,6 +38,14 @@ app.post('/posts/new', function (req, res) {
   })
 });
 
+app.delete('/posts', function (req, res) {
+  var del = req.body;
+  console.log(del);
+  knex.select().table('posts').where({id: del.id}).del().then(function () {
+    res.redirect('/users/' + del.userID);
+  })
+});
+
 app.get('/posts/:postID', function (req, res) {
   var postID = req.params.postID;
   var url = req.url

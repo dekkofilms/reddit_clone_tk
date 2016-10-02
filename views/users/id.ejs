@@ -4,13 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Welcome User!</title>
+  <title>Welcome <%= user.username %>!</title>
 </head>
 <body>
   <h1>Hi There, <%= user.username %>!</h1>
+  <h3>Your Posts:</h3>
   <ul>
     <% posts.forEach(function (post) { %>
       <a href="/posts/<%= post.id%>"><%= post.post_content %></a>
+      <form method="POST" action="/posts?_method=DELETE">
+        <input type="hidden" name="userID" value="<%= user.id %>">
+        <input type="hidden" name="id" value="<%= post.id%>">
+        <input type="submit" value="x">
+      </form>
     <% }) %>
   </ul>
 
