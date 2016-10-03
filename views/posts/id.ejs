@@ -21,8 +21,12 @@
         <%= comment.comment_content%>
         <% if(parseInt(userID) === comment.user_id) { %>
           <form method="POST" action="/comments?_method=DELETE">
-            <input type="hidden" name="id" value="<%= comment.id%>">
+            <input type="hidden" name="id" value="<%=comment.id%>">
             <input type="submit" value="x">
+          </form>
+          <form method="GET" action="/posts/<%=post.id%>/edit">
+            <input type="hidden" name="id" value="<%=comment.id%>">
+            <input type="submit" value="Edit">
           </form>
         <% } %>
       </li>

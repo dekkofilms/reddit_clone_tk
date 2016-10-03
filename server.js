@@ -48,7 +48,6 @@ app.put('/posts/edit', function (req, res) {
 
 app.post('/posts/new', function (req, res) {
   var post = req.body;
-  console.log(post);
   knex('posts').insert(post).then(function () {
     res.redirect('/posts?user=' + post.user_id);
   })
@@ -141,6 +140,24 @@ app.delete('/comments', function (req, res) {
   console.log(del);
   knex('comments').where(del).del().then(function () {
     res.redirect('back');
+  })
+});
+
+app.get('/posts/:postID/edit', function (req, res) {
+  var request = req.body;
+
+  var url = req.url.split('=');
+  var commentID = url.pop();
+  knex('comments').where({id: commentID}).first().then(function (data) {
+    res.render('posts/comments', {comment: data})
+  })
+});
+
+app.put('/posts/:postID/edit', function (req, res) {
+  var request = req.body;
+
+  knex('comments').where({id: request.id}).update({comment_content: request.comment_content}).then(function (data) {
+    res.redirect('/posts/' + request.post_id + '?user=' + request.user_id)
   })
 });
 
