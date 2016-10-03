@@ -64,10 +64,13 @@ app.delete('/posts', function (req, res) {
 
 app.get('/posts/:postID', function (req, res) {
   var postID = req.params.postID;
-  var url = req.url
+  var url = req.url;
+
+  var user = req.url.split('=');
+  var userID = user.pop();
   knex('posts').where({id: postID}).first().then(function (post) {
     knex('comments').where({post_id: postID}).then(function (comment) {
-      res.render('posts/id', {post: post, url: url, comment: comment});
+      res.render('posts/id', {post: post, url: url, comment: comment, userID: userID});
     })
   });
 });
@@ -75,6 +78,7 @@ app.get('/posts/:postID', function (req, res) {
 app.post('/posts/:postID', function (req, res) {
   var postID = req.params.postID;
   var comment = req.body;
+
   var url = req.url.split('=');
   var userID = url.pop();
   knex('comments').insert({comment_content: comment.comment_content, post_id: postID, user_id: userID}).then(function () {
@@ -130,6 +134,14 @@ app.get('/users/:userID', function (req, res) {
       res.render('users/id', {user: user, url: url, userID: userID, posts: posts});
     })
   });
+});
+
+app.delete('/comments', function (req, res) {
+  var del = req.body;
+  console.log(del);
+  knex('comments').where(del).del().then(function () {
+    res.redirect('back');
+  })
 });
 
 app.listen(PORT, function (){

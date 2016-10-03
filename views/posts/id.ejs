@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Spcific User Post</title>
+  <title>Specific User Post</title>
 </head>
 <body>
   <ul>
@@ -17,7 +17,15 @@
 
   <% comment.forEach(function (comment) { %>
     <ul>
-      <li><%= comment.comment_content%></li>
+      <li>
+        <%= comment.comment_content%>
+        <% if(parseInt(userID) === comment.user_id) { %>
+          <form method="POST" action="/comments?_method=DELETE">
+            <input type="hidden" name="id" value="<%= comment.id%>">
+            <input type="submit" value="x">
+          </form>
+        <% } %>
+      </li>
     </ul>
     <p></p>
   <% }) %>
